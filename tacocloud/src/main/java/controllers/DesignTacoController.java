@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -16,6 +17,7 @@ import repos.Ingredient;
 import repos.Ingredient.Type;
 import repos.Taco;
 import repos.TacoOrder;
+import repos.clientInfoRepo;
 
 @Slf4j
 @Controller
@@ -23,6 +25,7 @@ import repos.TacoOrder;
 @SessionAttributes("tacoOrder")
 public class DesignTacoController {
 	
+
 	@ModelAttribute
 	public void addIngredientsToModel(Model model) {
 		List<Ingredient> ingredients = Arrays.asList(
@@ -42,6 +45,21 @@ public class DesignTacoController {
 				model.addAttribute(type.toString().toLowerCase(),filterByType(ingredients, type));
 		}
 	 }
+
+	/*
+	@ModelAttribute
+	public void fillData(Model model) {
+		List<clientInfoRepo> aastclients = Arrays.asList(
+				new clientInfoRepo("Ahmed M. ElSayed","compiler@aast.edu","Iqbla, loran"),
+				new clientInfoRepo("Khalid Ahmed ElSayed","khalid.elsayed@student.aast.edu","Iqbla, loran"),
+				new clientInfoRepo("Shahd Ahmed ElSayed","shahd.ahmed@aast.edu","AlBostan, 6 oct"),
+				new clientInfoRepo("Nihad Nagy ElHadidy","nihad@aast.edu","Iqbla, loran"),
+				new clientInfoRepo("Mohamed Ayman AbdElAal","m.ayman.abdelaal@aast.edu","AlBostan, 6 oct")			
+				);			
+		 
+		model.addAttribute("aastClients",aastclients);
+	}
+	*/
 	
 	 @ModelAttribute(name = "tacoOrder")
 	 public TacoOrder order() {
@@ -58,6 +76,9 @@ public class DesignTacoController {
 	public String showDesignForm() {
 		return "design";
 	}
+	
+	@PostMapping
+	public String processTaco()
 	
 	
 	private Iterable<Ingredient> filterByType(
